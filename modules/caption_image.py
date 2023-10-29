@@ -19,7 +19,7 @@ class DittoImageCaption:
 
     def get_caption(self, image_path=None, image: Image = None):
         if image_path:
-            image = Image.open(full_path)
+            image = Image.open(image_path).convert("RGB")
         elif image:
             image = image
         else:
@@ -33,11 +33,8 @@ class DittoImageCaption:
 
 if __name__ == '__main__':
 
-    path = 'C:/Users/ozanj/Pictures/Screenshots/'
-    image = 'Screenshot_20221110_022553.png'
-    full_path = path + image
-
+    test_image = 'river-sunset.png'
     ditto_image_caption = DittoImageCaption()
 
-    generated_caption = ditto_image_caption.get_caption(image_path=full_path)
+    generated_caption = ditto_image_caption.get_caption(image_path=test_image)
     print(generated_caption)

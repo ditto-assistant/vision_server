@@ -18,7 +18,7 @@ class DittoQAImage:
 
     def query(self, query, image_path=None, image: Image = None):
         if image_path:
-            image = Image.open(full_path).convert("RGB")
+            image = Image.open(image_path).convert("RGB")
         elif image:
             image = image
         else:
@@ -43,13 +43,11 @@ class DittoQAImage:
 
 if __name__ == '__main__':
 
-    path = 'C:/Users/ozanj/Pictures/Screenshots/'
-    image = 'Screenshot_20221110_022606.png'
-    full_path = path + image
+    test_image = 'river-sunset.png'
 
     ditto_qa_image = DittoQAImage()
 
     res = ditto_qa_image.query(
         'Is there a person in this image?',
-        image_path=full_path
+        image_path=test_image
     )
