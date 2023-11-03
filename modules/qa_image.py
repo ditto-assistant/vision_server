@@ -35,9 +35,9 @@ class DittoQAImage:
         
         res = self.model.config.id2label[idx]
 
-        print()
-        print("Predicted answer:", res)
-        print()
+        # print()
+        # print("Predicted answer:", res)
+        # print()
 
         return res
 
