@@ -34,12 +34,13 @@ class DittoQAImage:
         idx = logits.argmax(-1).item()
         
         res = self.model.config.id2label[idx]
-
+        confidence = torch.softmax(logits, dim=1)[0, idx].item()
+        
         # print()
         # print("Predicted answer:", res)
         # print()
 
-        return res
+        return res, confidence
 
 if __name__ == '__main__':
 

@@ -77,7 +77,10 @@ def qa_handler():
 
     try:
         log.info(f"sending prompt and image to Q/A model: {prompt}")
-        qa_response = qa_model.query(query=prompt, image=image)
+        qa_response, confidence = qa_model.query(query=prompt, image=image)
+        print(f'Generated response: {qa_response} ({int(confidence * 100)}%)')
+        if 'yes' in qa_response and confidence < 0.8:
+            qa_response = 'no'
         return json.dumps({"response": qa_response})
     
     except BaseException as e:
@@ -99,7 +102,7 @@ def scan_face():
 
     
         # log.info(f"sending prompt and image to Q/A model: {prompt}")
-        qa_response = qa_model.query(query=prompt, image=image)
+        qa_response = qa_model.query(query=prompt, image=image)[0]
         if 'yes' in qa_response.lower():
             face_embeddings = facenet_model.get_embeddings(single_image=image)
             res = facenet_model.get_name_from_face_vector(
