@@ -79,8 +79,9 @@ def qa_handler():
         log.info(f"sending prompt and image to Q/A model: {prompt}")
         qa_response, confidence = qa_model.query(query=prompt, image=image)
         print(f'Generated response: {qa_response} ({int(confidence * 100)}%)')
-        if 'yes' in qa_response and confidence < 0.8:
-            qa_response = 'no'
+        if 'Is there a person in this image?' in prompt:
+            if 'yes' in qa_response and confidence < 0.90:
+                qa_response = 'no'
         return json.dumps({"response": qa_response})
     
     except BaseException as e:
@@ -100,7 +101,6 @@ def scan_face():
         image = image = Image.open(BytesIO(base64.b64decode(request.files['image'].read())))
         prompt = 'Is there a person facing the camera?'
 
-    
         # log.info(f"sending prompt and image to Q/A model: {prompt}")
         qa_response = qa_model.query(query=prompt, image=image)[0]
         if 'yes' in qa_response.lower():

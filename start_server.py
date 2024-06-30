@@ -12,8 +12,8 @@ class devnull:
 
 def start_server():
     server = Server()
-    http_server = WSGIServer(("0.0.0.0", 22032), server.app, log=devnull)
-    log.info("Vision Server started on port 22032]")
+    http_server = WSGIServer(("0.0.0.0", 42030), server.app, log=devnull)
+    log.info("Vision Server started on port 42030]")
     http_server.serve_forever()
 
 
